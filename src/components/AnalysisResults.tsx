@@ -1,9 +1,11 @@
-
 import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { BarChart2, AlertTriangle, Check, Info } from 'lucide-react';
+import HeatmapVisualization from './analytics/HeatmapVisualization';
+import WordCloud from './analytics/WordCloud';
+import EngagementMetrics from './analytics/EngagementMetrics';
 
 export type AnalysisResult = {
   darkUxPatterns: {
@@ -126,6 +128,20 @@ const AnalysisResults = ({ results, isAnalyzing }: AnalysisResultsProps) => {
     }
   };
 
+  const heatmapData = [
+    { name: 'Click Zone 1', value: 45, x: 100, y: 150 },
+    { name: 'Click Zone 2', value: 78, x: 200, y: 250 },
+    { name: 'Click Zone 3', value: 23, x: 300, y: 350 },
+  ];
+
+  const wordCloudData = [
+    { text: 'Dark Pattern', value: 40 },
+    { text: 'Hidden Costs', value: 30 },
+    { text: 'Subscription', value: 25 },
+    { text: 'Privacy', value: 35 },
+    { text: 'Cancellation', value: 28 },
+  ];
+
   return (
     <Card className="w-full mt-8">
       <CardHeader>
@@ -136,7 +152,7 @@ const AnalysisResults = ({ results, isAnalyzing }: AnalysisResultsProps) => {
       </CardHeader>
       <CardContent>
         <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid grid-cols-4 mb-4">
+          <TabsList className="grid grid-cols-5 mb-4">
             <TabsTrigger value="darkux" className="text-xs md:text-sm">
               Dark UX
             </TabsTrigger>
@@ -148,6 +164,9 @@ const AnalysisResults = ({ results, isAnalyzing }: AnalysisResultsProps) => {
             </TabsTrigger>
             <TabsTrigger value="performance" className="text-xs md:text-sm">
               Performance
+            </TabsTrigger>
+            <TabsTrigger value="analytics" className="text-xs md:text-sm">
+              Analytics
             </TabsTrigger>
           </TabsList>
           
@@ -351,6 +370,18 @@ const AnalysisResults = ({ results, isAnalyzing }: AnalysisResultsProps) => {
                 <h5 className="text-sm font-medium text-muted-foreground mb-1">Cumulative Layout Shift</h5>
                 <p className="text-xl font-semibold">{performance.webVitals.cls}</p>
               </div>
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="analytics" className="space-y-6">
+            <div className="grid gap-6 md:grid-cols-2">
+              <HeatmapVisualization data={heatmapData} />
+              <WordCloud words={wordCloudData} />
+              <EngagementMetrics 
+                averageTime="2m 45s"
+                bounceRate={35}
+                sessionCount={1247}
+              />
             </div>
           </TabsContent>
         </Tabs>
