@@ -5,7 +5,7 @@ import FilePreview from './FilePreview';
 import AnalysisResults, { AnalysisResult } from './AnalysisResults';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
-import { AlertTriangle } from 'lucide-react';
+import { AlertTriangle, FileSearch } from 'lucide-react';
 
 const Dashboard = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -123,28 +123,35 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="container max-w-7xl mx-auto px-4 py-8">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-3 gradient-text">Dark UX Pattern Analyzer</h1>
+    <div className="container max-w-7xl mx-auto px-4 py-12">
+      <div className="text-center mb-16">
+        <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-darkux-600 via-darkux-500 to-darkux-700 bg-clip-text text-transparent">
+          Dark UX Pattern Analyzer
+        </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
           Upload screenshots or enter website URLs to detect deceptive design patterns and get comprehensive UX analysis
         </p>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-3">
+      <div className="grid gap-8">
+        <div className="w-full">
           <UploadArea
             onFilesAccepted={handleFilesAccepted}
             onUrlSubmitted={handleUrlSubmitted}
           />
           
           {files.length > 0 && (
-            <FilePreview files={files} onRemove={handleRemoveFile} />
+            <div className="mt-8 animate-in fade-in">
+              <FilePreview files={files} onRemove={handleRemoveFile} />
+            </div>
           )}
           
           {websiteUrl && (
-            <div className="mt-6 p-4 border rounded-lg bg-muted/30">
-              <h3 className="text-lg font-medium mb-2">Website to Analyze</h3>
+            <div className="mt-8 p-6 border rounded-lg bg-card animate-in fade-in">
+              <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
+                <FileSearch className="w-5 h-5" />
+                Website to Analyze
+              </h3>
               <div className="flex items-center justify-between">
                 <a 
                   href={websiteUrl} 
@@ -166,10 +173,10 @@ const Dashboard = () => {
           )}
           
           {(files.length > 0 || websiteUrl) && !isAnalyzing && !results && (
-            <div className="mt-6 text-center">
+            <div className="mt-8 text-center">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-darkux-600 to-darkux-800 hover:from-darkux-700 hover:to-darkux-900"
+                className="bg-gradient-to-r from-darkux-600 to-darkux-800 hover:from-darkux-700 hover:to-darkux-900 text-white px-8 py-6 text-lg animate-in fade-in slide-in-from-bottom-4"
                 onClick={handleRunAnalysis}
               >
                 Run UX Analysis
@@ -178,11 +185,11 @@ const Dashboard = () => {
           )}
         </div>
         
-        <div className="lg:col-span-3">
+        <div className="w-full">
           <AnalysisResults results={results} isAnalyzing={isAnalyzing} />
           
           {results && (
-            <div className="mt-6 p-4 border rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-700">
+            <div className="mt-6 p-4 border rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-700 animate-in fade-in">
               <div className="flex gap-3">
                 <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-500 mt-0.5" />
                 <div>
