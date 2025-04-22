@@ -1,7 +1,9 @@
+
 import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertTriangle, FileSearch } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
 import type { AnalysisResult } from '@/types/analysis';
 import DarkUXPatterns from './analysis/DarkUXPatterns';
 import UsabilityAnalysis from './analysis/UsabilityAnalysis';

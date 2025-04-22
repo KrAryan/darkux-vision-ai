@@ -2,7 +2,8 @@
 import { useState } from 'react';
 import UploadArea from './UploadArea';
 import FilePreview from './FilePreview';
-import AnalysisResults, { AnalysisResult } from './AnalysisResults';
+import AnalysisResults from './AnalysisResults';
+import { AnalysisResult } from '@/types/analysis';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import { AlertTriangle, FileSearch } from 'lucide-react';
