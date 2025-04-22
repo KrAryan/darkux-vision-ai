@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useEffect, useRef, useState } from 'react';
 
@@ -8,7 +7,16 @@ type WordCloudProps = {
 
 const WordCloud = ({ words }: WordCloudProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [hoveredWord, setHoveredWord] = useState<{ text: string; value: number } | null>(null);
+  const [hoveredWord, setHoveredWord] = useState<{
+    text: string;
+    value: number;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    color: string;
+    fontSize: number;
+  } | null>(null);
   const [wordPositions, setWordPositions] = useState<Array<{
     text: string;
     value: number;
